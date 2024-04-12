@@ -51,4 +51,7 @@ public static void main() throws InterruptedException {
         permisoPrint.acquire();
     }
     System.out.print("Valor final de x: " + x[0]);
+
+    // Si pongo un un acquire al inicio del thread y un release al
+    // final, no es me estoy cargando la concurrencia?
 }
