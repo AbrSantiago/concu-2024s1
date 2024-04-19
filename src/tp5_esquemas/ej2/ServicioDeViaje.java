@@ -1,4 +1,4 @@
-package tp5_esquemas;
+package tp5_esquemas.ej2;
 
 import java.util.concurrent.Semaphore;
 

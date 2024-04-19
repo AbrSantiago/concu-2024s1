@@ -1,4 +1,4 @@
-import tp5_esquemas.ServicioDeViaje2;
+import tp5_esquemas.ej2.ServicioDeViaje2;
 
 public static void main() {
     System.out.println("Concu 2024s1 - TP5");
