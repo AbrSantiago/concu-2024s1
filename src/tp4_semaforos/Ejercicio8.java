@@ -7,7 +7,7 @@ public static void main() throws InterruptedException {
     Semaphore permisoT2 = new Semaphore(0);
 
     final int[] n = {50};
-    final int[] n2 = {0};
+    final int[] suma = {0};
 
     Thread T1 = new Thread(() -> {
         while (n[0] > 0) {
@@ -16,14 +16,14 @@ public static void main() throws InterruptedException {
             permisoT2.release();
         }
         permisoT1.acquireUninterruptibly();
-        System.out.print("Valor final de N: " + n2[0]);
+        System.out.print("Valor final de N: " + suma[0]);
     });
 
     Thread T2 = new Thread(() -> {
         while (true) {
             permisoT2.acquireUninterruptibly();
-            n2[0] = n2[0] + 2*n[0] + 1;
-            System.out.println("N=" + n[0] + " y N2=" + n2[0]);
+            suma[0] = suma[0] + 2*n[0] + 1;
+            System.out.println("N=" + n[0] + " y SUMA=" + suma[0]);
             permisoT1.release();
         }
     });
