@@ -6,7 +6,7 @@ public class ServicioDeViaje2 {
     public ServicioDeViaje2() {}
 
     // Bote
-    static Semaphore permisoViajarAlOeste = new Semaphore(2);
+    static Semaphore permisoViajarAlOeste = new Semaphore(0);
     static Semaphore permisoViajarAlEste = new Semaphore(0);
     // Persona
     static Semaphore permisoSubirEnElEste = new Semaphore(2);
@@ -17,14 +17,14 @@ public class ServicioDeViaje2 {
     // Se asume que el bote arranca en la costa Este y está vacío
     static Thread Bote = new Thread(() -> {
         while (true) {
-            permisoViajarAlOeste.acquireUninterruptibly(4);
+            permisoViajarAlOeste.acquireUninterruptibly(2);
             System.out.println("Viajando al Oeste"); // Viajar al Oeste
+            System.out.println("Amarrando bote en el Oeste");
             permisoBajarEnElOeste.release(2);
-            permisoSubirEnElOeste.release(2);
-            permisoViajarAlEste.acquireUninterruptibly(4);
+            permisoViajarAlEste.acquireUninterruptibly(2);
             System.out.println("Viajando al Este"); // Viajar al Este
+            System.out.println("Amarrando bote en el Este");
             permisoBajarEnElEste.release(2);
-            permisoSubirEnElEste.release(2);
         }
     });
 
@@ -38,7 +38,7 @@ public class ServicioDeViaje2 {
                 permisoViajarAlOeste.release();
                 permisoBajarEnElOeste.acquireUninterruptibly();
                 System.out.println("Persona Oriental " + finalI + " baja"); // Bajar del bote
-                permisoViajarAlEste.release();
+                permisoSubirEnElOeste.release();
             });
             PersonaOriental.start();
         }
@@ -50,7 +50,7 @@ public class ServicioDeViaje2 {
                 permisoViajarAlEste.release();
                 permisoBajarEnElEste.acquireUninterruptibly();
                 System.out.println("Persona Occidental " + finalI + " baja"); // Bajar del bote
-                permisoViajarAlOeste.release();
+                permisoSubirEnElEste.release();
             });
             PersonaOccidental.start();
         }
