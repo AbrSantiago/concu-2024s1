@@ -6,11 +6,11 @@ public class Gym {
     public Gym() {}
 
     Semaphore[] aparatos = {
-            new Semaphore(1),
-            new Semaphore(1),
-            new Semaphore(1),
-            new Semaphore(1)
+            new Semaphore(1, true),
+            new Semaphore(1, true),
+            new Semaphore(1, true),
+            new Semaphore(1, true)
     };
-    Semaphore discos = new Semaphore(20);
-    Semaphore mutexTomarDiscos = new Semaphore(1);
+    Semaphore discos = new Semaphore(20, true);
+    Semaphore mutexTomarDiscos = new Semaphore(1, true);
 }
