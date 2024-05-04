@@ -10,6 +10,7 @@ public class Auto extends Thread {
     @Override
     public void run() {
         System.out.println("Llega auto");
+        axion.surtidores.acquireUninterruptibly(); // Preguntar si puede ir antes
         // Robo
         axion.mutexP.acquireUninterruptibly();
         axion.mutexAuto.acquireUninterruptibly();
@@ -22,7 +23,6 @@ public class Auto extends Thread {
         axion.mutexAuto.release();
         axion.mutexP.release();
         // Lectura
-        axion.surtidores.acquireUninterruptibly(); // Preguntar si puede ir antes
         System.out.println("Caragando combustible");
         axion.surtidores.release();
         // Devolución
