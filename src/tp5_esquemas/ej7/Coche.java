@@ -13,44 +13,20 @@ public class Coche extends Thread {
 
     @Override
     public void run() {
-        if (this.dir == 0) {
-            // Robo
-            puente.mutexBSAS.acquireUninterruptibly();
-            puente.permisoHaciaBSAS.acquireUninterruptibly();
-            puente.circulandoHaciaBSAS++;
-            if (puente.circulandoHaciaBSAS == 1) {
-                puente.permisoHaciaLaPlata.acquireUninterruptibly();
-            }
-            // Leer mientras robo
-            System.out.println("Coche " + id + " cruzando hacia BSAS");
-            puente.permisoHaciaBSAS.release();
-            puente.mutexBSAS.release();
-            // Devolución
-            puente.mutexBSAS.acquireUninterruptibly();
-            puente.circulandoHaciaBSAS--;
-            if (puente.circulandoHaciaBSAS == 0) {
-                puente.permisoHaciaLaPlata.release();
-            }
-            puente.mutexBSAS.release();
-        } else {
-            // Robo
-            puente.mutexLaPlata.acquireUninterruptibly();
-            puente.permisoHaciaLaPlata.acquireUninterruptibly();
-            puente.circulandoHaciaLaPlata++;
-            if (puente.circulandoHaciaLaPlata == 1) {
-                puente.permisoHaciaBSAS.acquireUninterruptibly();
-            }
-            // Leer
-            System.out.println("Coche " + id + " cruzando hacia La Plata");
-            puente.permisoHaciaLaPlata.release();
-            puente.mutexLaPlata.release();
-            // Devolución
-            puente.mutexLaPlata.acquireUninterruptibly();
-            puente.circulandoHaciaLaPlata--;
-            if (puente.circulandoHaciaLaPlata == 0) {
-                puente.permisoHaciaBSAS.release();
-            }
-            puente.mutexLaPlata.release();
+        puente.mutexL[dir].acquireUninterruptibly();
+        puente.cantCirculando[dir]++;
+        if (puente.cantCirculando[dir] == 1) {
+            puente.permisoCircular.acquireUninterruptibly(); // Robo
         }
+        puente.mutexL[dir].release();
+
+        System.out.println("Coche "+id+" circulando hacia "+dir);
+
+        puente.mutexL[dir].acquireUninterruptibly();
+        puente.cantCirculando[dir]--;
+        if (puente.cantCirculando[dir] == 0) {
+            puente.permisoCircular.release(); // Devolución
+        }
+        puente.mutexL[dir].release();
     }
 }

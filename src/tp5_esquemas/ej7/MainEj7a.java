@@ -5,10 +5,13 @@ import java.util.Random;
 
 public static void main() {
     Puente puente = new Puente();
-    for (int i = 0; i < 500; i++) {
-        Random r = new Random();
-        int dir = r.nextInt() % 2;
-        Coche coche = new Coche(i, puente, dir);
+    for (int i = 0; i < 10000; i++) {
+        Coche coche = new Coche(i, puente, getDir());
         coche.start();
     }
+}
+
+private static int getDir() {
+    Random r = new Random();
+    return Math.abs(r.nextInt()) % 2;
 }
