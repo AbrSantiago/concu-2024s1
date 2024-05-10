@@ -1,6 +1,6 @@
-import tp6_monitores.Semaforo.Chino;
-import tp6_monitores.Semaforo.Semaforo;
-import tp6_monitores.Semaforo.Sushiman;
+import tp6_monitores.ej2_Semaforo.Chino;
+import tp6_monitores.ej2_Semaforo.Semaforo;
+import tp6_monitores.ej2_Semaforo.Sushiman;
 
 public static void main() {
     Semaforo permisoComer = new Semaforo(0);

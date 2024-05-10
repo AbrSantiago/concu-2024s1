@@ -1,4 +1,4 @@
-package tp6_monitores.Contador;
+package tp6_monitores.ej1_Contador;
 
 public class Contador {
     private int i = 0;

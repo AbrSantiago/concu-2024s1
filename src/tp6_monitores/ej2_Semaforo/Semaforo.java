@@ -1,4 +1,4 @@
-package tp6_monitores.Semaforo;
+package tp6_monitores.ej2_Semaforo;
 
 public class Semaforo {
     private int permisos;

@@ -1,5 +1,5 @@
-import tp6_monitores.Contador.Contador;
-import tp6_monitores.Contador.User;
+import tp6_monitores.ej1_Contador.Contador;
+import tp6_monitores.ej1_Contador.User;
 
 public static void main() {
     Contador contador = new Contador();
