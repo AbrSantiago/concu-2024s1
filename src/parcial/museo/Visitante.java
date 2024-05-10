@@ -14,27 +14,24 @@ public class Visitante extends Thread {
 
     @Override
     public void run() {
-        // Robo de permiso
         museo.mutexL.acquireUninterruptibly();
         museo.visitantes++;
         System.out.println("Visitante "+id+" llega al museo");
         if (museo.visitantes == 1) {
-            museo.permisoRenovar.acquireUninterruptibly();
+            museo.permisoRenovar.acquireUninterruptibly(); // Robo
         }
         museo.mutexL.release();
 
-        // Show
         for (int i = 0; i < billetes; i++) {
             System.out.println("Visitante "+id+" inserta billete");
-            museo.permisoBailar.release();
+            museo.permisoBailar.release(); // Show ready
         }
 
-        // Devolución de permiso
         museo.mutexL.acquireUninterruptibly();
         museo.visitantes--;
         System.out.println("Visitante "+id+" se va del museo");
         if (museo.visitantes == 0) {
-            museo.permisoRenovar.release();
+            museo.permisoRenovar.release(); // Devolución
         }
         museo.mutexL.release();
     }
