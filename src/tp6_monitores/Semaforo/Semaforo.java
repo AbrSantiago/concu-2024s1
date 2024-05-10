@@ -16,6 +16,6 @@ public class Semaforo {
 
     synchronized void release() {
         permisos++;
-        notifyAll();
+        notify(); // Da lo mmismo usar notifyAll?
     }
 }
