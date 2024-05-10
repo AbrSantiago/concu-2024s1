@@ -10,16 +10,19 @@ public class LimpiadorB extends Thread{
     @Override
     public void run() {
         while (true) {
-            // Robo
             toilet.persisoEntrar.acquireUninterruptibly();
-            toilet.permisoUsar.acquireUninterruptibly(8);
+            toilet.permisoUsar.acquireUninterruptibly(8); // Robo
             toilet.persisoEntrar.release();
-            //
+
             System.out.println("Limpiando baño");
-            try { Thread.sleep(500); }
-            catch (InterruptedException e) { throw new RuntimeException(e); }
-            // Devolución
-            toilet.permisoUsar.release(8);
+            sleep(500);
+
+            toilet.permisoUsar.release(8); // Devolución
         }
+    }
+
+    private static void sleep(int time) {
+        try { Thread.sleep(time); }
+        catch (InterruptedException e) { throw new RuntimeException(e); }
     }
 }
