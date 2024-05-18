@@ -4,28 +4,28 @@ public class Buffer {
     int size;
     int start = 0;
     int end = 0;
-    Object[] data;
+    Object[] items;
 
     public Buffer(int size) {
         this.size = size;
-        this.data = new Object[size+1];
+        this.items = new Object[size+1];
     }
 
-    synchronized void produce(int item) throws InterruptedException {
+    public synchronized void produce(Object item) throws InterruptedException {
         while (isFull()) {
             wait();
         }
-        data[start] = item;
+        items[start] = item;
         System.out.println("Agrego: "+item);
         start = next(start);
         notifyAll();
     }
 
-    synchronized Object consume() throws InterruptedException {
+    public synchronized Object consume() throws InterruptedException {
         while (isEmpty()) {
             wait();
         }
-        Object temp = data[end];
+        Object temp = items[end];
         end = next(end);
         notifyAll();
         return temp;
