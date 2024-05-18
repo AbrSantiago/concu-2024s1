@@ -11,7 +11,8 @@ public class Consumidor extends Thread {
     public void run() {
         for (int i = 0; i < 100; i++) {
             try {
-                buffer.consume();
+                Object data = buffer.consume();
+                System.out.println("Consumiendo "+data);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

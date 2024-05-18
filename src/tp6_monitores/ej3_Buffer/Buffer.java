@@ -21,14 +21,14 @@ public class Buffer {
         notifyAll();
     }
 
-    synchronized void consume() throws InterruptedException {
+    synchronized Object consume() throws InterruptedException {
         while (isEmpty()) {
             wait();
         }
-        Object i = data[end];
-        System.out.println("Consumo: "+i);
+        Object temp = data[end];
         end = next(end);
         notifyAll();
+        return temp;
     }
 
     private boolean isEmpty() {
