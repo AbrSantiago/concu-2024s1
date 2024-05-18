@@ -1,28 +1,27 @@
 package tp6_monitores.ej5_Event;
 
 public class Subscriber extends Thread {
-    int id;
     Event event;
 
-    public Subscriber(int id, Event event) {
-        this.id = id;
+    public Subscriber(Event event) {
         this.event = event;
     }
 
     @Override
     public void run() {
-        try {
-            event.subscribe(this);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        while (true) {
+            sleep500();
+            subscribe();
         }
     }
 
-    public void festejar() {
-        System.out.println(id+": Me suscribí");
+    private void subscribe() {
+        try { event.subscribe(); } catch (InterruptedException _) {}
     }
 
-    public void verPublicacion() {
-        System.out.println(id+": Leyendo publicación");
+    private static void sleep500() {
+        try {
+            sleep(500);
+        } catch (InterruptedException _) {}
     }
 }

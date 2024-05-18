@@ -1,21 +1,21 @@
 package tp6_monitores.ej5_Event;
 
-import java.util.ArrayList;
-
 public class Event {
-    ArrayList<Subscriber> subs = new ArrayList<>();
+    private int epoch;
 
     public Event() {}
 
     public synchronized void publish() {
-        System.out.println("Hay nueva publicación");
+        System.out.println("-------- Hay nueva publicación --------");
+        epoch++;
         notifyAll();
     }
 
-    synchronized void subscribe(Subscriber sub) throws InterruptedException {
-        subs.add(sub);
-        sub.festejar();
-        wait();
-        sub.verPublicacion();
+    synchronized void subscribe() throws InterruptedException {
+        System.out.println("Hay nuevo sub");
+        int current = epoch;
+        while (current == epoch) {
+            wait();
+        }
     }
 }
